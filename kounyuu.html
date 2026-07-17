@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="reserve">
+    <header>
+    <h1 class="title">札幌国際情報高校　購買予約確認サイト</h1>
+    <nav class="nav">
+        <ul class="menu-group">
+        <li class="menu-item"><a href="index.html">ホーム</a></li>
+        <li class="menu-item"><a href="zaiko.html">在庫確認</a></li>
+        <li class="menu-item"><a href="#">お問い合わせ</a></li>
+        </ul>
+    </nav>
+    </header>
+
+
+    
+    <div class="container">
+        <h2>購入情報</h2>
+        
+      
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>データ元</th>
+                    <th>入力された内容</th>
+                    <th>金額</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="rowName">
+                    <td>メロンパン</td>
+                    <td id="displayName" class="data-text">未入力</td>
+                    <td id="priceName" class="price-text">0円</td>
+                </tr>
+                <tr id="rowMsg">
+                    <td>おにぎり</td>
+                    <td id="displayMsg" class="data-text">未入力</td>
+                    <td id="priceMsg" class="price-text">0円</td>
+                </tr>
+                <tr id="row1">
+                    <td>チョコブラウニー</td>
+                    <td id="display1" class="data-text">未入力</td>
+                    <td id="price1" class="price-text">0円</td>
+                </tr>
+                <tr id="rowD1">
+                    <td>きりっと果実</td>
+                    <td id="displayD1" class="data-text">未入力</td>
+                    <td id="priceD1" class="price-text">0円</td>
+                </tr>
+                <tr id="rowD2">
+                    <td>キリンメッツライチ</td>
+                    <td id="displayD2" class="data-text">未入力</td>
+                    <td id="priceD2" class="price-text">0円</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="total-box">
+            合計金額:<span id="totalPrice">0</span>円
+        </div>
+
+        <!-- 入力フォーム -->
+        <div class="mail-form">
+            <p>氏名：<input type="text" id="yourname" required></p>
+            <p>
+                学年：
+                <select id="gakunen">
+                    <option value="1年">1年</option>
+                    <option value="2年">2年</option>
+                    <option value="3年">3年</option>
+                </select>
+            </p>
+            <p>
+                クラス：
+                <select id="class">
+                    <option value="1組">1組</option>
+                    <option value="2組">2組</option>
+                    <option value="3組">3組</option>
+                    <option value="4組">4組</option>
+                    <option value="5組">5組</option>
+                    <option value="6組">6組</option>
+                    <option value="7組">7組</option>
+                    <option value="8組">8組</option>
+                </select>
+            </p>
+        </div>
+
+        <!-- メール送信ボタン -->
+        <button id="mailBtn" class="btn-mail">✉️ 集約データをメールで送信</button>
+
+        <button id="clearBtn" class="btn-clear">データをすべて消去</button>
+        <hr>
+        <p><a href="sample.html">商品ページへ戻る</a></p>
+    </div>
+
+   
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #fafafa; }
+        .container { max-width: 500px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin: 0 auto; }
+        
+        /* テーブルのスタイル */
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 14px; }
+        .data-table th, .data-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .data-table th { background-color: #f2f2f2; font-weight: bold; width: 40%; }
+        .data-text { background-color: #fdfdfd; font-weight: bold; color: #333; }
+        .price-text{ text-align:right; font-weight:bold; color: #D9534f;}
+
+        .total-box{background:#fff3cd; color:#856404; padding:15px; border-radius:6px; text-align:right; font-size:18px; font-weight:bold; margin-bottom:25px;border:1px solid #ffeeba;}
+        /* フォームとボタンのスタイル */
+        .mail-form { background: #f9f9f9; padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #eee; }
+        .mail-form p { margin: 10px 0; }
+        input[type="text"], select { padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 12px; margin-top: 10px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-mail { background: #007bff; color: white; }
+        .btn-mail:hover { background: #0056b3; }
+        .btn-clear { background: #dc3545; color: white; margin-top: 30px; font-size: 12px; padding: 6px; }
+    </style>
+
+    <script>
+        const PRICE_A = 160;
+        const PRICE_B = 180;
+        const PRICE_C = 140;
+        const PRICE_D1 = 180;
+        const PRICE_D2 = 180;
+
+        let savedName = "";
+        let savedMsg = "";
+        let saved1 = "";
+        let savedD1 = "";
+        let savedD2 = "";
+
+        let totalA=0;
+        let totalB=0;
+        let totalC=0;
+        let totalD1=0;
+        let totalD2=0;
+
+         window.addEventListener('DOMContentLoaded', () => {
+            // ローカルストレージから個数を取得。空なら0にする
+            const rawA = localStorage.getItem('inputName') || "";
+            const rawB = localStorage.getItem('inputMsg') || "";
+            const rawC = localStorage.getItem('input1') || "";
+            const rawD1 = localStorage.getItem('inputD1') || "";
+            const rawD2 = localStorage.getItem('inputD2') || "";
+
+            // 数値に変換（全角数字でも半角数字に直して計算できるようにする）
+            savedName = parseInt(rawA.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
+            savedMsg = parseInt(rawB.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
+            saved1 = parseInt(rawC.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
+            savedD1 = parseInt(rawD1.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
+            savedD2 = parseInt(rawD2.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
+
+            // 💡 料金の計算
+            totalA = savedName * PRICE_A;
+            totalB = savedMsg * PRICE_B;
+            totalC = saved1 * PRICE_C;
+            totalD1 = savedD1 * PRICE_D1;
+            totalD2 = savedD2 * PRICE_D2;
+
+            // 画面への表示と「未入力（0個）の非表示処理」
+            handleRow('rowName', 'displayName', 'priceName', savedName, totalA);
+            handleRow('rowMsg', 'displayMsg', 'priceMsg', savedMsg, totalB);
+            handleRow('row1','display1','price1',saved1,totalC);
+            handleRow('rowD1','displayD1','priceD1',savedD1,totalD1);
+            handleRow('rowD2','displayD2','priceD2',savedD2,totalD2);
+
+            // 総合計の表示
+            document.getElementById('totalPrice').textContent = (totalA + totalB + totalC + totalD1 + totalD2).toLocaleString();
+        });
+
+        // 💡 表示と非表示、テキスト代入をまとめた関数
+        function handleRow(rowId, countId, priceId, count, price) {
+            const rowElement = document.getElementById(rowId);
+            if(!rowElement)return;
+
+            if (count === 0) {
+                rowElement.style.display = 'none'; // 0個なら行ごと隠す
+            } else {
+                rowElement.style.display = ''; // 表示する
+                document.getElementById(countId).textContent = count + "個";
+                document.getElementById(priceId).textContent = price.toLocaleString() + "円";
+            }
+        }
+
+
+        // 📩 メール送信処理
+        document.getElementById('mailBtn').addEventListener('click', () => {
+            const nameInput = document.getElementById('yourname').value;
+            const gakunenInput = document.getElementById('gakunen').value;
+            const classInput = document.getElementById('class').value;
+
+            if (!nameInput) {
+                alert("氏名を入力してください。");
+                return;
+            }
+
+            const toAddress = "24-0224512@hokkaido-c.ed.jp"; 
+            const subject = encodeURIComponent("【データ集約システム】入力内容のご報告");
+            
+         let itemDetails = "";
+            if (savedName > 0) itemDetails += `・メロンパン：${savedName}個 (${totalA}円)%0D%0A`;
+            if (savedMsg > 0) itemDetails += `・おにぎり：${savedMsg}個 (${totalB}円)%0D%0A`;
+            if (saved1 > 0) itemDetails += `・チョコブラウニー：${saved1}個 (${totalC}円)%0D%0A`;
+            if (savedD1 > 0) itemDetails += `・きりっと果実：${savedD1}個 (${totalD1}円)%0D%0A`;
+            if (savedD2 > 0) itemDetails += `・キリンメッツライチ：${savedD2}個 (${totalD2}円)%0D%0A`;
+            if (!itemDetails) itemDetails = "選択された商品はありません。%0D%0A";
+
+            const allTotal = totalA + totalB + totalC + totalD1 + totalD2;
+
+            const bodyText = `注文データは以下の通りです。%0D%0A%0D%0A` +
+                             `【送信者情報】%0D%0A` +
+                             `学年・クラス：${gakunenInput} ${classInput}%0D%0A` +
+                             `氏名：${nameInput}%0D%0A%0D%0A` +
+                             `【注文内容】%0D%0A${itemDetails}%0D%0A` +
+                             `【総合計金額】%0D%0A${allTotal}円`;
+            
+            const body = encodeURIComponent(bodyText);
+            window.location.href = `mailto:${toAddress}?subject=${subject}&body=${body}`;
+        });
+
+        // データクリア
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            localStorage.clear();
+            location.reload();
+        });
+    </script>
+</body>
+</html>
