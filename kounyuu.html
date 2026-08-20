@@ -204,21 +204,22 @@
             const subject = encodeURIComponent("【データ集約システム】入力内容のご報告");
             
          let itemDetails = "";
-            if (savedName > 0) itemDetails += `・メロンパン：${savedName}個 (${totalA}円)%0D%0A`;
-            if (savedMsg > 0) itemDetails += `・おにぎり：${savedMsg}個 (${totalB}円)%0D%0A`;
-            if (saved1 > 0) itemDetails += `・チョコブラウニー：${saved1}個 (${totalC}円)%0D%0A`;
-            if (savedD1 > 0) itemDetails += `・きりっと果実：${savedD1}個 (${totalD1}円)%0D%0A`;
-            if (savedD2 > 0) itemDetails += `・キリンメッツライチ：${savedD2}個 (${totalD2}円)%0D%0A`;
-            if (!itemDetails) itemDetails = "選択された商品はありません。%0D%0A";
+            if (savedName > 0) itemDetails += `・メロンパン：${savedName}個 (${totalA}円)\n`;
+            if (savedMsg > 0) itemDetails += `・おにぎり：${savedMsg}個 (${totalB}円)\n`;
+            if (saved1 > 0) itemDetails += `・チョコブラウニー：${saved1}個 (${totalC}円)\n`;
+            if (savedD1 > 0) itemDetails += `・きりっと果実：${savedD1}個 (${totalD1}円)\n`;
+            if (savedD2 > 0) itemDetails += `・キリンメッツライチ：${savedD2}個 (${totalD2}円)\n`;
+            if (!itemDetails) itemDetails = "選択された商品はありません。\n";
 
             const allTotal = totalA + totalB + totalC + totalD1 + totalD2;
 
-            const bodyText = `注文データは以下の通りです。%0D%0A%0D%0A` +
-                             `【送信者情報】%0D%0A` +
-                             `学年・クラス：${gakunenInput} ${classInput}%0D%0A` +
-                             `氏名：${nameInput}%0D%0A%0D%0A` +
-                             `【注文内容】%0D%0A${itemDetails}%0D%0A` +
-                             `【総合計金額】%0D%0A${allTotal}円`;
+            const bodyText = `注文データは以下の通りです。
+                             【送信者情報】
+                             学年・クラス：${gakunenInput} ${classInput}
+                             氏名：${nameInput}
+
+                             【注文内容】${itemDetails}
+                             【総合計金額】${allTotal}円`;
             
             const body = encodeURIComponent(bodyText);
             window.location.href = `mailto:${toAddress}?subject=${subject}&body=${body}`;
