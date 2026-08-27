@@ -93,11 +93,14 @@ footer {
 }
 
 .product-container {
-  display: flex;       
-  flex-wrap: wrap;     
-  justify-content: left; 
-  gap: 20px;          
+    display: flex;       
+    gap: 50px;          
 }
+
+.product-title {
+    font-size: 1.5em;    
+}
+
 
 .link-gap{
   margin-right: 20px;
@@ -155,4 +158,19 @@ footer {
   width: 36px;     
   height: auto;
   vertical-align: middle;
+}
+
+.sheet-container {
+    position: relative;
+    width: 30%;       /* 横幅いっぱいに広げる */
+    height: 500px;     /* 表示したい高さ（自由に調整してください） */
+    overflow: hidden;  /* はみ出た部分（＞マーク）を強制的に非表示にする */
+}
+
+.sheet-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 30px); /* 縦幅を少しだけ長くして、下部を枠外に押し出す */
 }

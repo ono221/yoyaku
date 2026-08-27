@@ -128,18 +128,21 @@
         const PRICE_C = 140;
         const PRICE_D1 = 180;
         const PRICE_D2 = 180;
+        const PRICE_D3 = 150;
 
         let savedName = "";
         let savedMsg = "";
         let saved1 = "";
         let savedD1 = "";
         let savedD2 = "";
+        let savedD3 = "";
 
         let totalA=0;
         let totalB=0;
         let totalC=0;
         let totalD1=0;
         let totalD2=0;
+        let totalD3=0;
 
          window.addEventListener('DOMContentLoaded', () => {
             // ローカルストレージから個数を取得。空なら0にする
@@ -148,6 +151,7 @@
             const rawC = localStorage.getItem('input1') || "";
             const rawD1 = localStorage.getItem('inputD1') || "";
             const rawD2 = localStorage.getItem('inputD2') || "";
+            const rawD3 = localStorage.getItem('inputD3')||"";
 
             // 数値に変換（全角数字でも半角数字に直して計算できるようにする）
             savedName = parseInt(rawA.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
@@ -155,6 +159,7 @@
             saved1 = parseInt(rawC.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
             savedD1 = parseInt(rawD1.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
             savedD2 = parseInt(rawD2.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
+            savedD3 = parseInt(rawD3.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 65248)), 10) || 0;
 
             // 💡 料金の計算
             totalA = savedName * PRICE_A;
@@ -162,6 +167,7 @@
             totalC = saved1 * PRICE_C;
             totalD1 = savedD1 * PRICE_D1;
             totalD2 = savedD2 * PRICE_D2;
+            totalD3 = savedD3 * PRICE_D3;
 
             // 画面への表示と「未入力（0個）の非表示処理」
             handleRow('rowName', 'displayName', 'priceName', savedName, totalA);
@@ -169,9 +175,10 @@
             handleRow('row1','display1','price1',saved1,totalC);
             handleRow('rowD1','displayD1','priceD1',savedD1,totalD1);
             handleRow('rowD2','displayD2','priceD2',savedD2,totalD2);
+            handleRow('rowD3','displayD3','price_D3',savedD3,totalD3);
 
             // 総合計の表示
-            document.getElementById('totalPrice').textContent = (totalA + totalB + totalC + totalD1 + totalD2).toLocaleString();
+            document.getElementById('totalPrice').textContent = (totalA + totalB + totalC + totalD1 + totalD2 + totalD3).toLocaleString();
         });
 
         // 💡 表示と非表示、テキスト代入をまとめた関数
@@ -209,9 +216,10 @@
             if (saved1 > 0) itemDetails += `・チョコブラウニー：${saved1}個 (${totalC}円)\n`;
             if (savedD1 > 0) itemDetails += `・きりっと果実：${savedD1}個 (${totalD1}円)\n`;
             if (savedD2 > 0) itemDetails += `・キリンメッツライチ：${savedD2}個 (${totalD2}円)\n`;
+            if (savedD3 > 0) itemDetails += `・きりっと果実スカッシュ:${savedD3}個(${totalD3}円)\n`;
             if (!itemDetails) itemDetails = "選択された商品はありません。\n";
 
-            const allTotal = totalA + totalB + totalC + totalD1 + totalD2;
+            const allTotal = totalA + totalB + totalC + totalD1 + totalD2 + totalD3;
 
             const bodyText = `注文データは以下の通りです。
                              【送信者情報】
