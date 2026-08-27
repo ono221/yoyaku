@@ -58,6 +58,11 @@
                     <td id="displayD2" class="data-text">未入力</td>
                     <td id="priceD2" class="price-text">0円</td>
                 </tr>
+                <tr id="rowD3">
+                    <td>きりっと果実スカッシュ</td>
+                    <td id="displayD3" class="data-text">未入力</td>
+                    <td id="priceD3" class="price-text">0円</td>
+                </tr>
             </tbody>
         </table>
 
@@ -175,7 +180,7 @@
             handleRow('row1','display1','price1',saved1,totalC);
             handleRow('rowD1','displayD1','priceD1',savedD1,totalD1);
             handleRow('rowD2','displayD2','priceD2',savedD2,totalD2);
-            handleRow('rowD3','displayD3','price_D3',savedD3,totalD3);
+            handleRow('rowD3','displayD3','priceD3',savedD3,totalD3);
 
             // 総合計の表示
             document.getElementById('totalPrice').textContent = (totalA + totalB + totalC + totalD1 + totalD2 + totalD3).toLocaleString();
